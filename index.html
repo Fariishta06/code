@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语阅读互动学习</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 页面容器 -->
+    <div id="app">
+        <!-- 课本列表页面 -->
+        <div id="textbookPage" class="page active">
+            <header class="header">
+                <h1>📚 英语阅读互动学习</h1>
+                <p class="subtitle">选择课本开始学习</p>
+            </header>
+            <div class="textbook-grid">
+                <div class="textbook-card" data-book="必修一">
+                    <div class="book-cover">
+                        <span class="book-icon">📖</span>
+                        <span class="book-title">人教版</span>
+                        <span class="book-subtitle">必修一</span>
+                    </div>
+                </div>
+                <div class="textbook-card" data-book="必修二">
+                    <div class="book-cover">
+                        <span class="book-icon">📖</span>
+                        <span class="book-title">人教版</span>
+                        <span class="book-subtitle">必修二</span>
+                    </div>
+                </div>
+                <div class="textbook-card" data-book="必修三">
+                    <div class="book-cover">
+                        <span class="book-icon">📖</span>
+                        <span class="book-title">人教版</span>
+                        <span class="book-subtitle">必修三</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 章节列表页面 -->
+        <div id="chapterPage" class="page">
+            <header class="header">
+                <button class="back-btn" onclick="showPage('textbookPage')">← 返回</button>
+                <h1 id="chapterTitle">人教版 必修一</h1>
+            </header>
+            <div class="chapter-list">
+                <div class="chapter-item" data-chapter="welcome">
+                    <span class="chapter-icon">🌟</span>
+                    <div class="chapter-info">
+                        <h3>Welcome Unit</h3>
+                        <p>高中生活初体验</p>
+                    </div>
+                    <span class="chapter-arrow">→</span>
+                </div>
+                <div class="chapter-item" data-chapter="unit1">
+                    <span class="chapter-icon">📝</span>
+                    <div class="chapter-info">
+                        <h3>Unit 1</h3>
+                        <p>Teenage Life</p>
+                    </div>
+                    <span class="chapter-arrow">→</span>
+                </div>
+                <div class="chapter-item" data-chapter="unit2">
+                    <span class="chapter-icon">🌍</span>
+                    <div class="chapter-info">
+                        <h3>Unit 2</h3>
+                        <p>Travelling Around</p>
+                    </div>
+                    <span class="chapter-arrow">→</span>
+                </div>
+                <div class="chapter-item" data-chapter="unit3">
+                    <span class="chapter-icon">💪</span>
+                    <div class="chapter-info">
+                        <h3>Unit 3</h3>
+                        <p>Sports and Fitness</p>
+                    </div>
+                    <span class="chapter-arrow">→</span>
+                </div>
+                <div class="chapter-item" data-chapter="unit4">
+                    <span class="chapter-icon">🌲</span>
+                    <div class="chapter-info">
+                        <h3>Unit 4</h3>
+                        <p>Natural Disasters</p>
+                    </div>
+                    <span class="chapter-arrow">→</span>
+                </div>
+                <div class="chapter-item" data-chapter="unit5">
+                    <span class="chapter-icon">🎭</span>
+                    <div class="chapter-info">
+                        <h3>Unit 5</h3>
+                        <p>Languages Around the World</p>
+                    </div>
+                    <span class="chapter-arrow">→</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 阅读关卡页面 -->
+        <div id="readingPage" class="page reading-page">
+            <header class="header reading-header">
+                <button class="back-btn" onclick="showPage('chapterPage')">← 返回章节</button>
+                <h1 id="readingTitle">Welcome Unit</h1>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                    <span class="progress-text" id="progressText">1 / 4</span>
+                </div>
+            </header>
+            
+            <div class="reading-container">
+                <!-- 顶部音频控制 -->
+                <div class="audio-controls-top">
+                    <button id="playBtn" class="audio-btn">
+                        <span class="audio-icon">▶️</span>
+                        <span class="audio-text">播放音频</span>
+                    </button>
+                    <div class="audio-progress">
+                        <div class="audio-progress-bar" id="audioProgressBar"></div>
+                    </div>
+                </div>
+
+                <!-- 主要内容区域：视频/图片和文本并排 -->
+                <div class="reading-content">
+                    <!-- 左侧视频/图片区域 -->
+                    <div class="scene-section">
+                        <div class="scene-media-container">
+                            <!-- 视频播放器 -->
+                            <video id="sceneVideo" class="scene-video" controls style="display: none;" controlsList="nodownload">
+                                <source src="" type="video/mp4">
+                                您的浏览器不支持视频播放
+                            </video>
+                            <!-- 图片（当没有视频时显示） -->
+                            <img id="sceneImage" src="" alt="场景图片" class="scene-image">
+                            <!-- 图片上的文字信息（视频时隐藏） -->
+                            <div class="scene-info" id="sceneInfoOverlay">
+                                <span class="scene-number" id="sceneNumber">镜头 1</span>
+                                <span class="scene-setting" id="sceneSetting">晚上10:45，卧室</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右侧文本区域 -->
+                    <div class="text-section">
+                        <div class="bilingual-content">
+                            <div class="english-text" id="englishText"></div>
+                            <div class="chinese-text" id="chineseText"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 导航按钮 -->
+                <div class="navigation">
+                    <button id="prevBtn" class="nav-btn" disabled>
+                        <span>←</span> 上一页
+                    </button>
+                    <button id="nextBtn" class="nav-btn">
+                        下一页 <span>→</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
