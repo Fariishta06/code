@@ -1,587 +1,876 @@
-// 英语阅读互动学习 - 核心 JavaScript
+// 英语精听练习互动课堂 - JavaScript
 
-// ==================== 数据定义 ====================
-const textbookData = {
-    '必修一': {
-        title: '人教版 必修一',
-        chapters: [
-            { id: 'welcome', name: 'Welcome Unit', desc: '高中生活初体验', icon: '🌟' },
-            { id: 'unit1', name: 'Unit 1', desc: 'Teenage Life', icon: '📝' },
-            { id: 'unit2', name: 'Unit 2', desc: 'Travelling Around', icon: '🌍' },
-            { id: 'unit3', name: 'Unit 3', desc: 'Sports and Fitness', icon: '💪' },
-            { id: 'unit4', name: 'Unit 4', desc: 'Natural Disasters', icon: '🌲' },
-            { id: 'unit5', name: 'Unit 5', desc: 'Languages Around the World', icon: '🎭' }
-        ]
-    },
-    '必修二': {
-        title: '人教版 必修二',
-        chapters: [
-            { id: 'unit1', name: 'Unit 1', desc: 'Cultural Heritage', icon: '🏛️' },
-            { id: 'unit2', name: 'Unit 2', desc: 'Wildlife Protection', icon: '🦁' },
-            { id: 'unit3', name: 'Unit 3', desc: 'The Internet', icon: '💻' },
-            { id: 'unit4', name: 'Unit 4', desc: 'History and Traditions', icon: '📜' },
-            { id: 'unit5', name: 'Unit 5', desc: 'Music', icon: '🎵' }
-        ]
-    },
-    '必修三': {
-        title: '人教版 必修三',
-        chapters: [
-            { id: 'unit1', name: 'Unit 1', desc: 'Festivals and Celebrations', icon: '🎉' },
-            { id: 'unit2', name: 'Unit 2', desc: 'Morals and Virtues', icon: '❤️' },
-            { id: 'unit3', name: 'Unit 3', desc: 'Diverse Cultures', icon: '🌏' },
-            { id: 'unit4', name: 'Unit 4', desc: 'Space Exploration', icon: '🚀' },
-            { id: 'unit5', name: 'Unit 5', desc: 'The Value of Money', icon: '💰' }
-        ]
-    }
-};
-
-// Welcome Unit 分镜脚本数据
-const welcomeUnitScenes = [
+// 词汇数据
+const vocabularyData = [
     {
-        id: 1,
-        setting: '晚上10:45，卧室',
-        shot: '近景',
-        video: 'file:///D:/应用/SOLO%20Coder/videos/scene1.mp4',
-        imagePrompt: '日系校园漫画风格，高中生坐在书桌前，双手交握放在桌上，眼神飘忽，脸上带着焦虑表情。桌上有翻开的笔记本，字迹清秀。暖黄色床头灯照明，背景是简洁的卧室墙面和小摆件。整体色调柔和，带轻微焦虑感。',
-        english: "So this is it—senior high school at last! I'm not outgoing so I'm a little anxious right now. I want to make a good first impression. Will I make any friends? What if no one talks to me?",
-        chinese: "就这样了——终于上高中了！我性格不外向，所以现在有点焦虑。我想给人留下好的第一印象。我会交到朋友吗？如果没人跟我说话怎么办？",
-        question: {
-            text: "How does the narrator feel at the beginning?",
-            chinese: " narrator 一开始感觉如何？",
-            options: [
-                { id: 'A', text: "Excited and confident", chinese: "兴奋且自信" },
-                { id: 'B', text: "Anxious and worried", chinese: "焦虑且担心" }
-            ],
-            correctAnswer: 'B',
-            explanation: "The narrator says 'I'm a little anxious right now' and asks 'Will I make any friends? What if no one talks to me?'",
-            explanationChinese: " narrator 说'我现在有点焦虑'，并问'我会交到朋友吗？如果没人跟我说话怎么办？'"
-        }
+        word: 'embarrassed',
+        pos: 'adj.',
+        meaning: '尴尬的，难堪的',
+        collocation: 'feel embarrassed（感到尴尬）'
     },
     {
-        id: 2,
-        setting: '上午，教室',
-        shot: '中景+特写',
-        video: 'file:///D:/应用/SOLO%20Coder/videos/scene2.mp4',
-        imagePrompt: '明亮的教室场景，左侧中景显示同学们坐直听课，讲台上站着温和的中年男数学老师，戴眼镜，正在微笑说话，手势舒展。右侧特写显示主角抬头看老师，脸上焦虑减轻，露出轻微笑意。课桌椅整齐，黑板上写着简单的数学公式。色调明亮温暖。',
-        english: "I just had my first maths class at senior high school! The class was difficult, but the teacher was kind and friendly. He even told us a funny story, and everyone laughed so much! I found most of my classmates and teachers friendly and helpful.",
-        chinese: "我刚上了高中的第一节数学课！课程很难，但老师亲切友好。他甚至给我们讲了一个有趣的故事，大家都笑得很开心！我发现大多数同学和老师都很友好、乐于助人。",
-        question: {
-            text: "What did the maths teacher do in class?",
-            chinese: "数学老师在课堂上做了什么？",
-            options: [
-                { id: 'A', text: "Gave a difficult test", chinese: "进行了一次困难的测试" },
-                { id: 'B', text: "Told a funny story", chinese: "讲了一个有趣的故事" }
-            ],
-            correctAnswer: 'B',
-            explanation: "The text says 'He even told us a funny story, and everyone laughed so much!'",
-            explanationChinese: "文中说'他甚至给我们讲了一个有趣的故事，大家都笑得很开心！'"
-        }
+        word: 'package',
+        pos: 'n.',
+        meaning: '套餐，包裹',
+        collocation: 'a family package（家庭套餐）'
     },
     {
-        id: 3,
-        setting: '下午，科学实验室',
-        shot: '近景+侧写',
-        video: 'file:///D:/应用/SOLO%20Coder/videos/scene3.mp4',
-        imagePrompt: '干净整洁的科学实验室，主角坐在实验台前，面前放着试管、烧杯等实验器材。主角眉头紧锁，眼神专注于器材，表情略显烦躁。右侧显示旁边的男生侧身对着主角，嘴巴张开似乎在说话，手部有手势，表情随意。实验室白光照明，背景可模糊处理实验器材。',
-        english: "This afternoon, we had our chemistry class in the science lab. The lab is new and the lesson was great, but the guy next to me tried to talk to me the whole time. I couldn't concentrate on the experiment. I really wanted to tell him to please be quiet and leave me alone!",
-        chinese: "今天下午，我们在科学实验室上了化学课。实验室是新的，课程也很棒，但我旁边的男生一直试图跟我说话。我无法集中精力做实验。我真的很想告诉他请安静点，让我一个人待着！",
-        question: {
-            text: "Why couldn't the narrator concentrate on the experiment?",
-            chinese: "为什么 narrator 无法集中精力做实验？",
-            options: [
-                { id: 'A', text: "The experiment was too difficult", chinese: "实验太难了" },
-                { id: 'B', text: "The guy next to him kept talking", chinese: "旁边的男生一直说话" }
-            ],
-            correctAnswer: 'B',
-            explanation: "The text says 'the guy next to me tried to talk to me the whole time. I couldn't concentrate on the experiment.'",
-            explanationChinese: "文中说'我旁边的男生一直试图跟我说话。我无法集中精力做实验。'"
-        }
+        word: 'accommodation',
+        pos: 'n.',
+        meaning: '住宿，住所',
+        collocation: 'hotel accommodations（酒店住宿）'
     },
     {
-        id: 4,
-        setting: '晚上，卧室（同第一帧场景）',
-        shot: '近景',
-        video: 'file:///D:/应用/SOLO%20Coder/videos/scene4.mp4',
-        imagePrompt: '同第一帧的卧室场景，暖黄色灯光。主角坐在书桌前，双手放在桌上，脸上带着轻松的笑容，眼神明亮，没有了上午的焦虑。眉头舒展，嘴角上扬，表情轻松自信。笔记本上有新的字迹补充完整。色调比第一帧更温暖明亮，突出情绪的转变。',
-        english: "What a day! This morning, I was worried that no one would talk to me. But I was wrong. I didn't feel awkward or frightened at all. I miss my friends from junior high school, but I believe I will make new friends here, and there's a lot to explore at senior high. I feel much more confident than I felt this morning. I think that tomorrow will be a great day!",
-        chinese: "多么充实的一天！今天早上，我还担心没人会跟我说话。但我错了。我一点也不觉得尴尬或害怕。我想念初中的朋友，但我相信我会在这里交到新朋友，高中还有很多值得探索的地方。我感觉比今天早上自信多了。我想明天会是美好的一天！",
-        question: {
-            text: "How does the narrator feel at the end of the day?",
-            chinese: " narrator 在一天结束时感觉如何？",
-            options: [
-                { id: 'A', text: "More confident", chinese: "更自信了" },
-                { id: 'B', text: "Still worried", chinese: "仍然很担心" }
-            ],
-            correctAnswer: 'A',
-            explanation: "The narrator says 'I feel much more confident than I felt this morning' and 'I think that tomorrow will be a great day!'",
-            explanationChinese: " narrator 说'我感觉比今天早上自信多了'和'我想明天会是美好的一天！'"
-        }
+        word: 'maintain',
+        pos: 'v.',
+        meaning: '维持，保持；维修',
+        collocation: 'poorly maintained（维修不善）'
+    },
+    {
+        word: 'stomachache',
+        pos: 'n.',
+        meaning: '胃痛，腹痛',
+        collocation: 'have a bad stomachache（胃痛严重）'
+    },
+    {
+        word: 'cinema',
+        pos: 'n.',
+        meaning: '电影院',
+        collocation: 'go to the cinema（去看电影）'
+    },
+    {
+        word: 'restaurant',
+        pos: 'n.',
+        meaning: '餐馆，餐厅',
+        collocation: 'near the restaurant（在餐馆附近）'
+    },
+    {
+        word: 'complain',
+        pos: 'v.',
+        meaning: '抱怨，投诉',
+        collocation: 'make a complaint（投诉）'
     }
 ];
 
-// ==================== 全局状态 ====================
-let currentState = {
-    currentBook: null,
-    currentChapter: null,
-    currentScene: 0,
-    isPlaying: false,
-    speechUtterance: null,
-    answeredQuestions: {},  // 记录已回答的问题
-    currentAnswer: null     // 当前选择的答案
+// 正确答案
+const correctAnswers = {
+    blanks: {
+        'text1-1': 'hate',
+        'text1-2': 'embarrassed',
+        'text2-1': 'package',
+        'text2-2': '80',
+        'text3-1': 'restaurant',
+        'text3-2': 'cinema',
+        'text3-3': 'children',
+        'text4-1': 'accommodation',
+        'text4-2': 'maintained',
+        'text5-1': 'stomachache'
+    },
+    questions: {
+        q1: 'B',
+        q2: 'A',
+        q3: 'B',
+        q4: 'C',
+        q5: 'B'
+    }
 };
 
-// ==================== 页面切换 ====================
-function showPage(pageId) {
-    // 隐藏所有页面
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
-    
-    // 显示目标页面
-    document.getElementById(pageId).classList.add('active');
-    
-    // 停止音频播放
-    stopAudio();
-}
+// 全局状态
+let currentSection = 1;
+let audioPlayer = null;
+let isPlaying = false;
+let previewTimer = null;
+let practiceTimer = null;
+let previewSeconds = 0;
+let practiceSeconds = 0;
 
-// ==================== 课本选择 ====================
-function initTextbookPage() {
-    const cards = document.querySelectorAll('.textbook-card');
-    cards.forEach(card => {
-        card.addEventListener('click', () => {
-            const bookId = card.dataset.book;
-            selectBook(bookId);
-        });
-    });
-}
+// 各步骤的音频播放器
+let readingAudioPlayer = null;
+let repeatAudioPlayer = null;
+let shadowAudioPlayer = null;
+let isReadingPlaying = false;
+let isRepeatPlaying = false;
+let isShadowStepPlaying = false;
 
-function selectBook(bookId) {
-    currentState.currentBook = bookId;
-    const bookData = textbookData[bookId];
-    
-    // 更新章节页面标题
-    document.getElementById('chapterTitle').textContent = bookData.title;
-    
-    // 渲染章节列表
-    renderChapterList(bookData.chapters);
-    
-    // 切换到章节页面
-    showPage('chapterPage');
-}
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+    initVocabulary();
+    initEventListeners();
+    startPreviewTimer();
+});
 
-function renderChapterList(chapters) {
-    const chapterList = document.querySelector('.chapter-list');
-    chapterList.innerHTML = chapters.map(chapter => `
-        <div class="chapter-item" data-chapter="${chapter.id}">
-            <span class="chapter-icon">${chapter.icon}</span>
-            <div class="chapter-info">
-                <h3>${chapter.name}</h3>
-                <p>${chapter.desc}</p>
-            </div>
-            <span class="chapter-arrow">→</span>
-        </div>
-    `).join('');
-    
-    // 添加点击事件
-    document.querySelectorAll('.chapter-item').forEach(item => {
-        item.addEventListener('click', () => {
-            const chapterId = item.dataset.chapter;
-            selectChapter(chapterId);
-        });
+// 初始化词汇表
+function initVocabulary() {
+    const tbody = document.getElementById('vocabulary-list');
+    if (!tbody) return;
+
+    vocabularyData.forEach((item, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td class="word-cell">${item.word}</td>
+            <td class="pos-cell">${item.pos}</td>
+            <td>${item.meaning}</td>
+            <td>${item.collocation}</td>
+            <td>
+                <button class="audio-btn" data-word="${item.word}" onclick="playWordAudio('${item.word}', this)">
+                    🔊
+                </button>
+            </td>
+        `;
+        tbody.appendChild(row);
     });
 }
 
-// ==================== 章节选择 ====================
-function selectChapter(chapterId) {
-    currentState.currentChapter = chapterId;
-    currentState.currentScene = 0;
-    
-    // 更新阅读页面标题
-    const bookData = textbookData[currentState.currentBook];
-    const chapter = bookData.chapters.find(c => c.id === chapterId);
-    document.getElementById('readingTitle').textContent = chapter.name;
-    
-    // 加载场景
-    loadScene(0);
-    
-    // 切换到阅读页面
-    showPage('readingPage');
-}
-
-// ==================== 场景加载 ====================
-function loadScene(sceneIndex) {
-    const scene = welcomeUnitScenes[sceneIndex];
-    if (!scene) return;
-    
-    currentState.currentScene = sceneIndex;
-    
-    // 更新场景信息
-    document.getElementById('sceneNumber').textContent = `镜头 ${scene.id}`;
-    document.getElementById('sceneSetting').textContent = scene.setting;
-    
-    // 加载媒体（视频或图片）
-    loadMedia(scene);
-    
-    // 更新文本内容
-    document.getElementById('englishText').textContent = scene.english;
-    document.getElementById('chineseText').textContent = scene.chinese;
-    
-    // 加载问答
-    loadQuiz(scene);
-    
-    // 更新进度条
-    updateProgress(sceneIndex);
-    
-    // 更新导航按钮状态
-    updateNavigationButtons(sceneIndex);
-    
-    // 自动播放音频（如果视频不存在或需要同步播放）
-    setTimeout(() => {
-        playAudio(scene.english);
-    }, 500);
-}
-
-// 加载媒体（视频或图片）
-function loadMedia(scene) {
-    const videoElement = document.getElementById('sceneVideo');
-    const imageElement = document.getElementById('sceneImage');
-    const sceneInfoOverlay = document.getElementById('sceneInfoOverlay');
-    
-    if (scene.video) {
-        // 有视频，显示视频播放器
-        videoElement.style.display = 'block';
-        imageElement.style.display = 'none';
-        
-        // 隐藏图片上的文字覆盖层（视频有自己的控制条）
-        if (sceneInfoOverlay) {
-            sceneInfoOverlay.style.display = 'none';
-        }
-        
-        // 设置视频源
-        videoElement.src = scene.video;
-        
-        // 静音视频（去掉人声，保留背景音乐）
-        videoElement.muted = true;
-        videoElement.volume = 0;
-        
-        videoElement.load();
-        
-        // 视频加载完成后自动播放
-        videoElement.onloadeddata = () => {
-            videoElement.play().catch(e => {
-                console.log('视频自动播放被阻止:', e);
-            });
-        };
-        
-        // 视频错误处理
-        videoElement.onerror = () => {
-            console.log('视频加载失败，显示图片代替');
-            showImageFallback(scene, videoElement, imageElement);
-        };
-    } else {
-        // 没有视频，显示图片
-        showImageFallback(scene, videoElement, imageElement);
-    }
-}
-
-// 显示图片（当视频不存在或加载失败时）
-function showImageFallback(scene, videoElement, imageElement) {
-    videoElement.style.display = 'none';
-    imageElement.style.display = 'block';
-    imageElement.src = generateSceneImage(scene.imagePrompt);
-    imageElement.alt = scene.setting;
-}
-
-// 生成场景图片（使用占位图，实际项目中可以接入AI图片生成API）
-function generateSceneImage(prompt) {
-    // 这里使用基于场景ID的固定颜色占位图
-    const colors = ['667eea', '764ba2', 'f093fb', '4facfe'];
-    const color = colors[currentState.currentScene % colors.length];
-    return `https://placehold.co/800x400/${color}/white?text=Scene+${currentState.currentScene + 1}`;
-}
-
-function updateProgress(sceneIndex) {
-    const total = welcomeUnitScenes.length;
-    const progress = ((sceneIndex + 1) / total) * 100;
-    
-    document.getElementById('progressFill').style.setProperty('--progress', `${progress}%`);
-    document.getElementById('progressText').textContent = `${sceneIndex + 1} / ${total}`;
-    
-    // 更新进度条宽度
-    const progressFill = document.querySelector('.progress-fill::after');
-    if (progressFill) {
-        progressFill.style.width = `${progress}%`;
-    }
-}
-
-function updateNavigationButtons(sceneIndex) {
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    
-    prevBtn.disabled = sceneIndex === 0;
-    
-    // 检查是否已回答当前问题
-    const scene = welcomeUnitScenes[sceneIndex];
-    const hasAnswered = currentState.answeredQuestions[sceneIndex] !== undefined;
-    
-    // 如果有问题且未回答，禁用下一页按钮
-    if (scene.question && !hasAnswered) {
-        nextBtn.disabled = true;
-        nextBtn.innerHTML = '请先答题 <span>🔒</span>';
-    } else {
-        nextBtn.disabled = false;
-        if (sceneIndex === welcomeUnitScenes.length - 1) {
-            nextBtn.innerHTML = '完成 <span>✓</span>';
-        } else {
-            nextBtn.innerHTML = '下一页 <span>→</span>';
-        }
-    }
-}
-
-// ==================== 问答功能 ====================
-function loadQuiz(scene) {
-    const quizSection = document.getElementById('quizSection');
-    const questionText = document.getElementById('questionText');
-    const quizOptions = document.getElementById('quizOptions');
-    const quizResult = document.getElementById('quizResult');
-    
-    // 重置状态
-    currentState.currentAnswer = null;
-    quizResult.style.display = 'none';
-    quizResult.className = 'quiz-result';
-    
-    if (!scene.question) {
-        quizSection.style.display = 'none';
-        return;
-    }
-    
-    quizSection.style.display = 'block';
-    
-    // 检查是否已经回答过
-    const sceneIndex = currentState.currentScene;
-    const hasAnswered = currentState.answeredQuestions[sceneIndex] !== undefined;
-    
-    // 设置问题（只显示英语）
-    questionText.textContent = scene.question.text;
-    
-    // 生成选项（只显示英语）
-    quizOptions.innerHTML = scene.question.options.map(option => `
-        <div class="quiz-option ${hasAnswered && currentState.answeredQuestions[sceneIndex] === option.id ? 'selected' : ''} ${hasAnswered && option.id === scene.question.correctAnswer ? 'correct' : ''} ${hasAnswered && currentState.answeredQuestions[sceneIndex] === option.id && option.id !== scene.question.correctAnswer ? 'wrong' : ''}" 
-             data-option="${option.id}"
-             onclick="selectAnswer('${option.id}')"
-             style="${hasAnswered ? 'pointer-events: none;' : ''}">
-            <span class="option-id">${option.id}</span>
-            <div class="option-text">
-                <div class="option-english">${option.text}</div>
-            </div>
-        </div>
-    `).join('');
-    
-    // 如果已经回答过，显示结果
-    if (hasAnswered) {
-        showQuizResult(scene.question, currentState.answeredQuestions[sceneIndex]);
-    }
-}
-
-function selectAnswer(optionId) {
-    const scene = welcomeUnitScenes[currentState.currentScene];
-    if (!scene.question) return;
-    
-    // 记录答案
-    currentState.currentAnswer = optionId;
-    currentState.answeredQuestions[currentState.currentScene] = optionId;
-    
-    // 更新选项样式
-    document.querySelectorAll('.quiz-option').forEach(option => {
-        option.classList.remove('selected');
-        option.style.pointerEvents = 'none';
-        
-        const optId = option.dataset.option;
-        if (optId === optionId) {
-            option.classList.add('selected');
-        }
-        if (optId === scene.question.correctAnswer) {
-            option.classList.add('correct');
-        } else if (optId === optionId && optId !== scene.question.correctAnswer) {
-            option.classList.add('wrong');
-        }
+// 播放单词音频（使用Web Speech API）
+function playWordAudio(word, btn) {
+    // 停止其他正在播放的音频
+    document.querySelectorAll('.audio-btn.playing').forEach(b => {
+        b.classList.remove('playing');
+        b.textContent = '🔊';
     });
-    
-    // 显示结果
-    showQuizResult(scene.question, optionId);
-    
-    // 更新导航按钮状态
-    updateNavigationButtons(currentState.currentScene);
-}
 
-function showQuizResult(question, selectedAnswer) {
-    const quizResult = document.getElementById('quizResult');
-    const resultIcon = document.getElementById('resultIcon');
-    const resultText = document.getElementById('resultText');
-    const resultExplanation = document.getElementById('resultExplanation');
-    
-    const isCorrect = selectedAnswer === question.correctAnswer;
-    
-    quizResult.style.display = 'flex';
-    quizResult.className = `quiz-result ${isCorrect ? 'correct' : 'wrong'}`;
-    
-    if (isCorrect) {
-        resultIcon.textContent = '✅';
-        resultText.textContent = 'Correct!';
-        resultText.style.color = '#28a745';
-    } else {
-        resultIcon.textContent = '❌';
-        resultText.textContent = 'Incorrect';
-        resultText.style.color = '#dc3545';
-    }
-    
-    resultExplanation.innerHTML = `
-        <strong>Explanation:</strong> ${question.explanation}
-    `;
-}
-
-// ==================== 音频播放 ====================
-function initAudioControls() {
-    const playBtn = document.getElementById('playBtn');
-    playBtn.addEventListener('click', toggleAudio);
-}
-
-function toggleAudio() {
-    if (currentState.isPlaying) {
-        stopAudio();
-    } else {
-        const scene = welcomeUnitScenes[currentState.currentScene];
-        playAudio(scene.english);
-    }
-}
-
-function playAudio(text) {
-    // 停止之前的播放
-    stopAudio();
-    
-    // 检查浏览器是否支持语音合成
-    if (!window.speechSynthesis) {
-        alert('您的浏览器不支持语音播放功能');
-        return;
-    }
-    
-    // 创建语音合成实例
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.9;
-    utterance.pitch = 1;
-    
-    // 播放事件
-    utterance.onstart = () => {
-        currentState.isPlaying = true;
-        updatePlayButton(true);
-    };
-    
-    // 结束事件
-    utterance.onend = () => {
-        currentState.isPlaying = false;
-        updatePlayButton(false);
-    };
-    
-    // 错误事件
-    utterance.onerror = (event) => {
-        console.error('语音播放错误:', event);
-        currentState.isPlaying = false;
-        updatePlayButton(false);
-    };
-    
-    // 保存引用并播放
-    currentState.speechUtterance = utterance;
-    window.speechSynthesis.speak(utterance);
-    
-    // 更新进度条动画
-    animateAudioProgress();
-}
-
-function stopAudio() {
-    if (window.speechSynthesis) {
+    if (btn.classList.contains('playing')) {
         window.speechSynthesis.cancel();
+        btn.classList.remove('playing');
+        btn.textContent = '🔊';
+        return;
     }
-    currentState.isPlaying = false;
-    currentState.speechUtterance = null;
-    updatePlayButton(false);
+
+    btn.classList.add('playing');
+    btn.textContent = '⏸';
+
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.8;
     
-    // 重置进度条
-    document.getElementById('audioProgressBar').style.width = '0%';
+    utterance.onend = () => {
+        btn.classList.remove('playing');
+        btn.textContent = '🔊';
+    };
+
+    window.speechSynthesis.speak(utterance);
 }
 
-function updatePlayButton(isPlaying) {
-    const playBtn = document.getElementById('playBtn');
-    const audioIcon = playBtn.querySelector('.audio-icon');
-    const audioText = playBtn.querySelector('.audio-text');
+// 播放全部单词
+let isPlayingAll = false;
+let currentWordIndex = 0;
+
+function playAllWords() {
+    const playAllBtn = document.getElementById('play-all-words');
+    const statusSpan = document.getElementById('play-all-status');
     
+    if (isPlayingAll) {
+        // 停止播放
+        window.speechSynthesis.cancel();
+        isPlayingAll = false;
+        currentWordIndex = 0;
+        playAllBtn.textContent = '🔊 播放全部单词';
+        playAllBtn.classList.remove('playing');
+        if (statusSpan) statusSpan.textContent = '';
+        return;
+    }
+
+    isPlayingAll = true;
+    playAllBtn.textContent = '⏸ 停止播放';
+    playAllBtn.classList.add('playing');
+    
+    currentWordIndex = 0;
+    playNextWord();
+}
+
+function playNextWord() {
+    if (!isPlayingAll || currentWordIndex >= vocabularyData.length) {
+        // 播放完成
+        isPlayingAll = false;
+        currentWordIndex = 0;
+        const playAllBtn = document.getElementById('play-all-words');
+        const statusSpan = document.getElementById('play-all-status');
+        if (playAllBtn) {
+            playAllBtn.textContent = '🔊 播放全部单词';
+            playAllBtn.classList.remove('playing');
+        }
+        if (statusSpan) statusSpan.textContent = '播放完成！';
+        return;
+    }
+
+    const word = vocabularyData[currentWordIndex];
+    const statusSpan = document.getElementById('play-all-status');
+    if (statusSpan) {
+        statusSpan.textContent = `正在播放: ${word.word} (${currentWordIndex + 1}/${vocabularyData.length})`;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(word.word);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.8;
+    
+    utterance.onend = () => {
+        // 每个单词播放后间隔1秒再播放下一个
+        setTimeout(() => {
+            currentWordIndex++;
+            playNextWord();
+        }, 1000);
+    };
+
+    window.speechSynthesis.speak(utterance);
+}
+
+// 初始化事件监听器
+function initEventListeners() {
+    // 预习任务复选框
+    const taskCheckboxes = document.querySelectorAll('.task-checkbox');
+    taskCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const taskItem = this.closest('.task-item');
+            if (this.checked) {
+                taskItem.classList.add('completed');
+            } else {
+                taskItem.classList.remove('completed');
+            }
+            checkPreviewComplete();
+        });
+    });
+
+    // 完成预习按钮
+    const completePreviewBtn = document.getElementById('complete-preview');
+    if (completePreviewBtn) {
+        completePreviewBtn.addEventListener('click', function() {
+            goToSection(2);
+            stopPreviewTimer();
+            startPracticeTimer();
+        });
+    }
+
+    // 开始精听按钮
+    const startListeningBtn = document.getElementById('start-listening');
+    if (startListeningBtn) {
+        startListeningBtn.addEventListener('click', function() {
+            showPracticeStep('step-listening');
+        });
+    }
+
+    // 播放全部单词按钮
+    const playAllBtn = document.getElementById('play-all-words');
+    if (playAllBtn) {
+        playAllBtn.addEventListener('click', playAllWords);
+    }
+
+    // 音频上传 - 关键信息精听
+    const audioUpload = document.getElementById('audio-upload');
+    if (audioUpload) {
+        audioUpload.addEventListener('change', handleAudioUpload);
+    }
+
+    // 播放/暂停按钮 - 关键信息精听
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    if (playPauseBtn) {
+        playPauseBtn.addEventListener('click', toggleAudio);
+    }
+
+    // 播放速度控制 - 关键信息精听
+    const playbackSpeed = document.getElementById('playback-speed');
+    if (playbackSpeed) {
+        playbackSpeed.addEventListener('change', function() {
+            if (audioPlayer) {
+                audioPlayer.playbackRate = parseFloat(this.value);
+            }
+        });
+    }
+
+    // 读题试答音频
+    initStepAudioPlayer('reading', readingAudioPlayer, isReadingPlaying);
+    
+    // 核对跟读音频
+    initStepAudioPlayer('repeat', repeatAudioPlayer, isRepeatPlaying);
+    
+    // 影子跟读音频
+    initStepAudioPlayer('shadow-step', shadowAudioPlayer, isShadowStepPlaying);
+
+    // 核对答案按钮
+    const checkAnswersBtn = document.getElementById('check-answers');
+    if (checkAnswersBtn) {
+        checkAnswersBtn.addEventListener('click', checkBlanksAnswers);
+    }
+
+    // 进入核对跟读按钮
+    const goToRepeatBtn = document.getElementById('go-to-repeat');
+    if (goToRepeatBtn) {
+        goToRepeatBtn.addEventListener('click', function() {
+            showPracticeStep('step-repeat');
+        });
+    }
+
+    // 进入影子跟读按钮
+    const goToShadowBtn = document.getElementById('go-to-shadow');
+    if (goToShadowBtn) {
+        goToShadowBtn.addEventListener('click', function() {
+            showPracticeStep('step-shadow');
+        });
+    }
+
+    // 完成跟读，查看课后作业按钮
+    const completeShadowBtn = document.getElementById('complete-shadow');
+    if (completeShadowBtn) {
+        completeShadowBtn.addEventListener('click', function() {
+            goToSection(3);
+            stopPracticeTimer();
+        });
+    }
+
+    // 重新开始按钮
+    const restartBtn = document.getElementById('restart-btn');
+    if (restartBtn) {
+        restartBtn.addEventListener('click', restartLearning);
+    }
+
+    // 选项点击效果
+    document.querySelectorAll('.option').forEach(option => {
+        option.addEventListener('click', function() {
+            const radio = this.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.checked = true;
+                // 移除同组其他选项的选中样式
+                const name = radio.name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                    r.closest('.option').classList.remove('selected');
+                });
+                this.classList.add('selected');
+            }
+        });
+    });
+}
+
+// 检查预习是否完成
+function checkPreviewComplete() {
+    const task1 = document.getElementById('task1');
+    const task2 = document.getElementById('task2');
+    const completeBtn = document.getElementById('complete-preview');
+
+    if (task1 && task2 && completeBtn) {
+        if (task1.checked && task2.checked) {
+            completeBtn.disabled = false;
+        } else {
+            completeBtn.disabled = true;
+        }
+    }
+}
+
+// 切换到指定章节
+function goToSection(sectionNum) {
+    // 隐藏所有章节
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+    });
+
+    // 显示目标章节
+    const targetSection = document.getElementById(
+        sectionNum === 1 ? 'preview-section' :
+        sectionNum === 2 ? 'practice-section' : 'homework-section'
+    );
+    if (targetSection) {
+        targetSection.classList.add('active');
+    }
+
+    // 更新进度条
+    updateProgressBar(sectionNum);
+    currentSection = sectionNum;
+
+    // 滚动到顶部
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 更新进度条
+function updateProgressBar(currentStep) {
+    document.querySelectorAll('.progress-step').forEach((step, index) => {
+        const stepNum = index + 1;
+        step.classList.remove('active', 'completed');
+        
+        if (stepNum < currentStep) {
+            step.classList.add('completed');
+        } else if (stepNum === currentStep) {
+            step.classList.add('active');
+        }
+    });
+}
+
+// 显示练习步骤
+function showPracticeStep(stepId) {
+    document.querySelectorAll('.practice-step').forEach(step => {
+        step.classList.add('hidden');
+    });
+
+    const targetStep = document.getElementById(stepId);
+    if (targetStep) {
+        targetStep.classList.remove('hidden');
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 处理音频上传
+function handleAudioUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const url = URL.createObjectURL(file);
+        if (audioPlayer) {
+            audioPlayer.pause();
+        }
+        audioPlayer = new Audio(url);
+        
+        // 设置播放速度
+        const speedSelect = document.getElementById('playback-speed');
+        if (speedSelect) {
+            audioPlayer.playbackRate = parseFloat(speedSelect.value);
+        }
+
+        // 更新进度条
+        audioPlayer.addEventListener('timeupdate', updateAudioProgress);
+        audioPlayer.addEventListener('ended', function() {
+            isPlaying = false;
+            updatePlayButton();
+        });
+
+        // 加载元数据后更新时间显示
+        audioPlayer.addEventListener('loadedmetadata', function() {
+            updateAudioTimeDisplay();
+        });
+
+        alert('音频文件已加载成功！');
+    }
+}
+
+// 切换音频播放/暂停
+function toggleAudio() {
+    if (!audioPlayer) {
+        alert('请先上传音频文件！');
+        return;
+    }
+
     if (isPlaying) {
-        playBtn.classList.add('playing');
-        audioIcon.textContent = '⏸️';
-        audioText.textContent = '暂停';
+        audioPlayer.pause();
+        isPlaying = false;
     } else {
-        playBtn.classList.remove('playing');
-        audioIcon.textContent = '▶️';
-        audioText.textContent = '播放音频';
+        audioPlayer.play();
+        isPlaying = true;
+    }
+    updatePlayButton();
+}
+
+// 更新播放按钮状态
+function updatePlayButton() {
+    const btn = document.getElementById('play-pause-btn');
+    if (btn) {
+        btn.textContent = isPlaying ? '⏸' : '▶';
     }
 }
 
-function animateAudioProgress() {
-    if (!currentState.isPlaying) return;
+// 更新音频进度
+function updateAudioProgress() {
+    if (!audioPlayer) return;
     
-    // 模拟音频进度（实际项目中可以使用真实音频的currentTime）
-    const progressBar = document.getElementById('audioProgressBar');
-    let progress = 0;
+    const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+    const progressBar = document.querySelector('.progress-bar-fill');
+    if (progressBar) {
+        progressBar.style.width = progress + '%';
+    }
+
+    updateAudioTimeDisplay();
+}
+
+// 更新时间显示
+function updateAudioTimeDisplay() {
+    if (!audioPlayer) return;
+
+    const current = formatTime(audioPlayer.currentTime || 0);
+    const duration = formatTime(audioPlayer.duration || 0);
+    const timeDisplay = document.querySelector('.audio-time');
+    if (timeDisplay) {
+        timeDisplay.textContent = `${current} / ${duration}`;
+    }
+}
+
+// 格式化时间
+function formatTime(seconds) {
+    if (isNaN(seconds)) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+// 初始化各步骤的音频播放器
+function initStepAudioPlayer(stepName, player, isPlaying) {
+    // 音频上传
+    const uploadInput = document.getElementById(`${stepName}-audio-upload`);
+    if (uploadInput) {
+        uploadInput.addEventListener('change', function(e) {
+            handleStepAudioUpload(e, stepName);
+        });
+    }
+
+    // 播放/暂停按钮
+    const playBtn = document.getElementById(`${stepName}-play-btn`);
+    if (playBtn) {
+        playBtn.addEventListener('click', function() {
+            toggleStepAudio(stepName);
+        });
+    }
+
+    // 播放速度控制
+    const speedSelect = document.getElementById(`${stepName}-speed`);
+    if (speedSelect) {
+        speedSelect.addEventListener('change', function() {
+            const audioPlayer = getStepAudioPlayer(stepName);
+            if (audioPlayer) {
+                audioPlayer.playbackRate = parseFloat(this.value);
+            }
+        });
+    }
+}
+
+// 获取步骤的音频播放器
+function getStepAudioPlayer(stepName) {
+    switch(stepName) {
+        case 'reading': return readingAudioPlayer;
+        case 'repeat': return repeatAudioPlayer;
+        case 'shadow-step': return shadowAudioPlayer;
+        default: return audioPlayer;
+    }
+}
+
+// 设置步骤的音频播放器
+function setStepAudioPlayer(stepName, player) {
+    switch(stepName) {
+        case 'reading': readingAudioPlayer = player; break;
+        case 'repeat': repeatAudioPlayer = player; break;
+        case 'shadow-step': shadowAudioPlayer = player; break;
+        default: audioPlayer = player; break;
+    }
+}
+
+// 获取步骤的播放状态
+function getStepPlayingState(stepName) {
+    switch(stepName) {
+        case 'reading': return isReadingPlaying;
+        case 'repeat': return isRepeatPlaying;
+        case 'shadow-step': return isShadowStepPlaying;
+        default: return isPlaying;
+    }
+}
+
+// 设置步骤的播放状态
+function setStepPlayingState(stepName, state) {
+    switch(stepName) {
+        case 'reading': isReadingPlaying = state; break;
+        case 'repeat': isRepeatPlaying = state; break;
+        case 'shadow-step': isShadowStepPlaying = state; break;
+        default: isPlaying = state; break;
+    }
+}
+
+// 处理步骤音频上传
+function handleStepAudioUpload(event, stepName) {
+    const file = event.target.files[0];
+    if (file) {
+        const url = URL.createObjectURL(file);
+        const currentPlayer = getStepAudioPlayer(stepName);
+        if (currentPlayer) {
+            currentPlayer.pause();
+        }
+        
+        const newPlayer = new Audio(url);
+        setStepAudioPlayer(stepName, newPlayer);
+        
+        // 设置播放速度
+        const speedSelect = document.getElementById(`${stepName}-speed`);
+        if (speedSelect) {
+            newPlayer.playbackRate = parseFloat(speedSelect.value);
+        }
+
+        // 更新进度条和时间
+        newPlayer.addEventListener('timeupdate', function() {
+            updateStepAudioProgress(stepName);
+        });
+        
+        newPlayer.addEventListener('ended', function() {
+            setStepPlayingState(stepName, false);
+            updateStepPlayButton(stepName);
+            if (stepName === 'shadow-step') {
+                const statusText = document.querySelector('#shadow-status .status-text');
+                if (statusText) statusText.textContent = '影子跟读完成！';
+            }
+        });
+
+        newPlayer.addEventListener('loadedmetadata', function() {
+            updateStepAudioTimeDisplay(stepName);
+        });
+
+        alert('音频文件已加载成功！');
+    }
+}
+
+// 切换步骤音频播放/暂停
+function toggleStepAudio(stepName) {
+    const audioPlayer = getStepAudioPlayer(stepName);
+    if (!audioPlayer) {
+        alert('请先上传音频文件！');
+        return;
+    }
+
+    const isCurrentlyPlaying = getStepPlayingState(stepName);
+
+    if (isCurrentlyPlaying) {
+        audioPlayer.pause();
+        setStepPlayingState(stepName, false);
+    } else {
+        audioPlayer.play();
+        setStepPlayingState(stepName, true);
+    }
     
-    const interval = setInterval(() => {
-        if (!currentState.isPlaying) {
-            clearInterval(interval);
+    updateStepPlayButton(stepName);
+    
+    if (stepName === 'shadow-step') {
+        const statusText = document.querySelector('#shadow-status .status-text');
+        if (statusText) {
+            statusText.textContent = isCurrentlyPlaying ? '已暂停，点击继续跟读...' : '正在影子跟读，请跟随音频朗读...';
+        }
+    }
+}
+
+// 更新步骤播放按钮状态
+function updateStepPlayButton(stepName) {
+    const btn = document.getElementById(`${stepName}-play-btn`);
+    const isCurrentlyPlaying = getStepPlayingState(stepName);
+    if (btn) {
+        btn.textContent = isCurrentlyPlaying ? '⏸' : '▶';
+    }
+}
+
+// 更新步骤音频进度
+function updateStepAudioProgress(stepName) {
+    const audioPlayer = getStepAudioPlayer(stepName);
+    if (!audioPlayer) return;
+    
+    const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+    const progressBar = document.getElementById(`${stepName}-progress`);
+    if (progressBar) {
+        progressBar.style.width = progress + '%';
+    }
+
+    updateStepAudioTimeDisplay(stepName);
+}
+
+// 更新步骤时间显示
+function updateStepAudioTimeDisplay(stepName) {
+    const audioPlayer = getStepAudioPlayer(stepName);
+    if (!audioPlayer) return;
+
+    const current = formatTime(audioPlayer.currentTime || 0);
+    const duration = formatTime(audioPlayer.duration || 0);
+    const timeDisplay = document.getElementById(`${stepName}-time`);
+    if (timeDisplay) {
+        timeDisplay.textContent = `${current} / ${duration}`;
+    }
+}
+
+// 核对填空答案
+function checkBlanksAnswers() {
+    const blanks = document.querySelectorAll('.blank-input');
+    let allFilled = true;
+    let correctCount = 0;
+
+    blanks.forEach((blank, index) => {
+        const userAnswer = blank.value.trim().toLowerCase();
+        const correctAnswer = blank.dataset.answer.toLowerCase();
+        
+        if (!userAnswer) {
+            allFilled = false;
             return;
         }
-        
-        progress += 1;
-        progressBar.style.width = `${progress}%`;
-        
-        if (progress >= 100) {
-            clearInterval(interval);
-        }
-    }, 100);
-}
 
-// ==================== 导航控制 ====================
-function initNavigation() {
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    
-    prevBtn.addEventListener('click', () => {
-        if (currentState.currentScene > 0) {
-            loadScene(currentState.currentScene - 1);
-        }
-    });
-    
-    nextBtn.addEventListener('click', () => {
-        if (currentState.currentScene < welcomeUnitScenes.length - 1) {
-            loadScene(currentState.currentScene + 1);
+        // 支持多个正确答案（用/分隔）
+        const possibleAnswers = correctAnswer.split('/');
+        const isCorrect = possibleAnswers.some(ans => userAnswer === ans.trim());
+
+        if (isCorrect) {
+            blank.classList.add('correct');
+            blank.classList.remove('incorrect');
+            correctCount++;
         } else {
-            // 完成学习
-            alert('恭喜！您已完成本章节的学习！');
-            showPage('chapterPage');
+            blank.classList.add('incorrect');
+            blank.classList.remove('correct');
         }
     });
+
+    if (!allFilled) {
+        alert('请填写所有空格后再核对答案！');
+        return;
+    }
+
+    const total = blanks.length;
+    alert(`核对完成！你答对了 ${correctCount}/${total} 题。`);
+
+    // 显示进入下一步按钮
+    const goToRepeatBtn = document.getElementById('go-to-repeat');
+    if (goToRepeatBtn) {
+        goToRepeatBtn.classList.remove('hidden');
+    }
 }
 
-// ==================== 初始化 ====================
-document.addEventListener('DOMContentLoaded', () => {
-    initTextbookPage();
-    initAudioControls();
-    initNavigation();
-    
-    // 添加CSS变量支持
-    const style = document.createElement('style');
-    style.textContent = `
-        .progress-fill::after {
-            width: var(--progress, 25%);
+// 提交最终答案
+function submitFinalAnswers() {
+    // 检查是否所有题目都已作答
+    const questions = ['final-q1', 'final-q2', 'final-q3', 'final-q4', 'final-q5'];
+    let allAnswered = true;
+    let correctCount = 0;
+
+    questions.forEach((qName, index) => {
+        const selected = document.querySelector(`input[name="${qName}"]:checked`);
+        if (!selected) {
+            allAnswered = false;
+        } else if (selected.value === correctAnswers.questions[`q${index + 1}`]) {
+            correctCount++;
         }
-    `;
-    document.head.appendChild(style);
+    });
+
+    if (!allAnswered) {
+        alert('请完成所有题目后再提交！');
+        return;
+    }
+
+    // 显示答案解析
+    const answerResult = document.getElementById('answer-result');
+    if (answerResult) {
+        answerResult.classList.remove('hidden');
+    }
+
+    // 显示完成按钮
+    const completeBtn = document.getElementById('complete-practice');
+    if (completeBtn) {
+        completeBtn.classList.remove('hidden');
+    }
+
+    // 隐藏提交按钮
+    const submitBtn = document.getElementById('submit-answers');
+    if (submitBtn) {
+        submitBtn.classList.add('hidden');
+    }
+
+    alert(`答题完成！你答对了 ${correctCount}/5 题。`);
+}
+
+// 预习计时器
+function startPreviewTimer() {
+    previewTimer = setInterval(() => {
+        previewSeconds++;
+        const timerDisplay = document.getElementById('preview-timer');
+        if (timerDisplay) {
+            timerDisplay.textContent = formatTime(previewSeconds);
+        }
+    }, 1000);
+}
+
+function stopPreviewTimer() {
+    if (previewTimer) {
+        clearInterval(previewTimer);
+        previewTimer = null;
+    }
+}
+
+// 练习计时器
+function startPracticeTimer() {
+    practiceSeconds = 0;
+    practiceTimer = setInterval(() => {
+        practiceSeconds++;
+        const timerDisplay = document.getElementById('practice-timer');
+        if (timerDisplay) {
+            timerDisplay.textContent = formatTime(practiceSeconds);
+        }
+    }, 1000);
+}
+
+function stopPracticeTimer() {
+    if (practiceTimer) {
+        clearInterval(practiceTimer);
+        practiceTimer = null;
+    }
+}
+
+// 重新开始学习
+function restartLearning() {
+    // 重置所有状态
+    currentSection = 1;
+    previewSeconds = 0;
+    practiceSeconds = 0;
+
+    // 重置所有复选框
+    document.querySelectorAll('.task-checkbox').forEach(cb => {
+        cb.checked = false;
+        cb.closest('.task-item').classList.remove('completed');
+    });
+
+    // 重置所有填空
+    document.querySelectorAll('.blank-input').forEach(input => {
+        input.value = '';
+        input.classList.remove('correct', 'incorrect');
+    });
+
+    // 重置所有单选
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.checked = false;
+        radio.closest('.option')?.classList.remove('selected');
+    });
+
+    // 停止播放全部单词
+    if (isPlayingAll) {
+        window.speechSynthesis.cancel();
+        isPlayingAll = false;
+        currentWordIndex = 0;
+        const playAllBtn = document.getElementById('play-all-words');
+        const statusSpan = document.getElementById('play-all-status');
+        if (playAllBtn) {
+            playAllBtn.textContent = '🔊 播放全部单词';
+            playAllBtn.classList.remove('playing');
+        }
+        if (statusSpan) statusSpan.textContent = '';
+    }
+
+    // 重置按钮状态
+    const completePreviewBtn = document.getElementById('complete-preview');
+    if (completePreviewBtn) {
+        completePreviewBtn.disabled = true;
+    }
+
+    // 重置练习步骤
+    showPracticeStep('step-reading');
+
+    // 返回第一部分
+    goToSection(1);
+
+    // 重新开始计时
+    stopPreviewTimer();
+    stopPracticeTimer();
+    startPreviewTimer();
+
+    // 滚动到顶部
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 点击进度条切换（仅允许已完成的章节）
+document.querySelectorAll('.progress-step').forEach((step, index) => {
+    step.addEventListener('click', function() {
+        const stepNum = index + 1;
+        // 只允许切换到已完成的章节或当前章节
+        if (stepNum <= currentSection) {
+            goToSection(stepNum);
+            if (stepNum === 1) {
+                stopPracticeTimer();
+                startPreviewTimer();
+            } else if (stepNum === 2) {
+                stopPreviewTimer();
+                startPracticeTimer();
+            } else {
+                stopPreviewTimer();
+                stopPracticeTimer();
+            }
+        }
+    });
 });

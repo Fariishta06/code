@@ -3,181 +3,591 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>英语阅读互动学习</title>
+    <title>英语精听练习互动课堂</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- 页面容器 -->
-    <div id="app">
-        <!-- 课本列表页面 -->
-        <div id="textbookPage" class="page active">
-            <header class="header">
-                <h1>📚 英语阅读互动学习</h1>
-                <p class="subtitle">选择课本开始学习</p>
-            </header>
-            <div class="textbook-grid">
-                <div class="textbook-card" data-book="必修一">
-                    <div class="book-cover">
-                        <span class="book-icon">📖</span>
-                        <span class="book-title">人教版</span>
-                        <span class="book-subtitle">必修一</span>
-                    </div>
+    <div class="container">
+        <header class="header">
+            <h1>英语精听练习互动课堂</h1>
+            <div class="progress-bar">
+                <div class="progress-step active" data-step="1">
+                    <span class="step-number">1</span>
+                    <span class="step-name">预习部分</span>
                 </div>
-                <div class="textbook-card" data-book="必修二">
-                    <div class="book-cover">
-                        <span class="book-icon">📖</span>
-                        <span class="book-title">人教版</span>
-                        <span class="book-subtitle">必修二</span>
-                    </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="2">
+                    <span class="step-number">2</span>
+                    <span class="step-name">带做题目</span>
                 </div>
-                <div class="textbook-card" data-book="必修三">
-                    <div class="book-cover">
-                        <span class="book-icon">📖</span>
-                        <span class="book-title">人教版</span>
-                        <span class="book-subtitle">必修三</span>
-                    </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="3">
+                    <span class="step-number">3</span>
+                    <span class="step-name">课后作业</span>
                 </div>
             </div>
-        </div>
+        </header>
 
-        <!-- 章节列表页面 -->
-        <div id="chapterPage" class="page">
-            <header class="header">
-                <button class="back-btn" onclick="showPage('textbookPage')">← 返回</button>
-                <h1 id="chapterTitle">人教版 必修一</h1>
-            </header>
-            <div class="chapter-list">
-                <div class="chapter-item" data-chapter="welcome">
-                    <span class="chapter-icon">🌟</span>
-                    <div class="chapter-info">
-                        <h3>Welcome Unit</h3>
-                        <p>高中生活初体验</p>
-                    </div>
-                    <span class="chapter-arrow">→</span>
+        <main class="main-content">
+            <!-- 预习部分 -->
+            <section id="preview-section" class="section active">
+                <div class="section-header">
+                    <h2>预习部分（15分钟）</h2>
+                    <div class="timer" id="preview-timer">00:00</div>
                 </div>
-                <div class="chapter-item" data-chapter="unit1">
-                    <span class="chapter-icon">📝</span>
-                    <div class="chapter-info">
-                        <h3>Unit 1</h3>
-                        <p>Teenage Life</p>
-                    </div>
-                    <span class="chapter-arrow">→</span>
-                </div>
-                <div class="chapter-item" data-chapter="unit2">
-                    <span class="chapter-icon">🌍</span>
-                    <div class="chapter-info">
-                        <h3>Unit 2</h3>
-                        <p>Travelling Around</p>
-                    </div>
-                    <span class="chapter-arrow">→</span>
-                </div>
-                <div class="chapter-item" data-chapter="unit3">
-                    <span class="chapter-icon">💪</span>
-                    <div class="chapter-info">
-                        <h3>Unit 3</h3>
-                        <p>Sports and Fitness</p>
-                    </div>
-                    <span class="chapter-arrow">→</span>
-                </div>
-                <div class="chapter-item" data-chapter="unit4">
-                    <span class="chapter-icon">🌲</span>
-                    <div class="chapter-info">
-                        <h3>Unit 4</h3>
-                        <p>Natural Disasters</p>
-                    </div>
-                    <span class="chapter-arrow">→</span>
-                </div>
-                <div class="chapter-item" data-chapter="unit5">
-                    <span class="chapter-icon">🎭</span>
-                    <div class="chapter-info">
-                        <h3>Unit 5</h3>
-                        <p>Languages Around the World</p>
-                    </div>
-                    <span class="chapter-arrow">→</span>
-                </div>
-            </div>
-        </div>
 
-        <!-- 阅读关卡页面 -->
-        <div id="readingPage" class="page reading-page">
-            <header class="header reading-header">
-                <button class="back-btn" onclick="showPage('chapterPage')">← 返回章节</button>
-                <h1 id="readingTitle">Welcome Unit</h1>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                    <span class="progress-text" id="progressText">1 / 4</span>
-                </div>
-            </header>
-            
-            <div class="reading-container">
-                <!-- 顶部音频控制 -->
-                <div class="audio-controls-top">
-                    <button id="playBtn" class="audio-btn">
-                        <span class="audio-icon">▶️</span>
-                        <span class="audio-text">播放音频</span>
-                    </button>
-                    <div class="audio-progress">
-                        <div class="audio-progress-bar" id="audioProgressBar"></div>
+                <!-- 重点单词预习 -->
+                <div class="subsection">
+                    <h3>一、重点单词预习（8分钟）</h3>
+                    
+                    <div class="word-study">
+                        <h4>1. 核心听力词汇</h4>
+                        <div class="play-all-container">
+                            <button id="play-all-words" class="btn btn-primary">
+                                🔊 播放全部单词
+                            </button>
+                            <span class="play-all-status" id="play-all-status"></span>
+                        </div>
+                        <div class="vocabulary-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>单词</th>
+                                        <th>词性</th>
+                                        <th>核心含义（听力场景）</th>
+                                        <th>听力常考搭配</th>
+                                        <th>发音</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="vocabulary-list">
+                                    <!-- 单词列表将通过JS动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="preview-tasks">
+                        <h4>2. 预习小任务</h4>
+                        <div class="task-list">
+                            <div class="task-item">
+                                <input type="checkbox" id="task1" class="task-checkbox">
+                                <label for="task1">朗读以上单词2遍，标注自己不熟悉的单词，重点记忆"发音+含义"，无需拓展复杂用法。</label>
+                            </div>
+                            <div class="task-item">
+                                <input type="checkbox" id="task2" class="task-checkbox">
+                                <label for="task2">尝试用单词造简单句（如：I felt embarrassed yesterday.），初步巩固记忆。</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 主要内容区域：视频/图片和文本并排 -->
-                <div class="reading-content">
-                    <!-- 左侧视频/图片区域 -->
-                    <div class="scene-section">
-                        <div class="scene-media-container">
-                            <!-- 视频播放器 -->
-                            <video id="sceneVideo" class="scene-video" controls style="display: none;" controlsList="nodownload">
-                                <source src="" type="video/mp4">
-                                您的浏览器不支持视频播放
-                            </video>
-                            <!-- 图片（当没有视频时显示） -->
-                            <img id="sceneImage" src="" alt="场景图片" class="scene-image">
-                            <!-- 图片上的文字信息（视频时隐藏） -->
-                            <div class="scene-info" id="sceneInfoOverlay">
-                                <span class="scene-number" id="sceneNumber">镜头 1</span>
-                                <span class="scene-setting" id="sceneSetting">晚上10:45，卧室</span>
+                <!-- 精听方法提炼 -->
+                <div class="subsection">
+                    <h3>二、精听方法提炼（7分钟）</h3>
+                    
+                    <div class="method-section">
+                        <h4>1. 短对话核心技巧</h4>
+                        <p class="method-intro">短对话听力无需听懂每一个词，聚焦<strong>"5大关键信息"</strong>即可快速解题：</p>
+                        <div class="key-points">
+                            <div class="key-point">
+                                <span class="point-tag">人物</span>
+                                <span class="point-desc">（who）：通过称呼、语气、行为线索，推断对话双方身份关联。</span>
+                            </div>
+                            <div class="key-point">
+                                <span class="point-tag">动作/行为</span>
+                                <span class="point-desc">（what）：关注对话中的核心动词短语，捕捉具体行为指向。</span>
+                            </div>
+                            <div class="key-point">
+                                <span class="point-tag">地点</span>
+                                <span class="point-desc">（where）：结合场景相关词汇，判断对话发生的具体场所。</span>
+                            </div>
+                            <div class="key-point">
+                                <span class="point-tag">情绪</span>
+                                <span class="point-desc">（how）：捕捉形容词、副词及语气变化，判断说话人情感状态。</span>
+                            </div>
+                            <div class="key-point">
+                                <span class="point-tag">数字/细节</span>
+                                <span class="point-desc">（detail）：重点倾听价格、数量等数值类信息，标记关键数字。</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 右侧文本区域 -->
-                    <div class="text-section">
-                        <div class="bilingual-content">
-                            <div class="english-text" id="englishText"></div>
-                            <div class="chinese-text" id="chineseText"></div>
-                        </div>
-                        <!-- 问答区域 -->
-                        <div class="quiz-section" id="quizSection">
-                            <div class="quiz-question">
-                                <span class="quiz-label">📝 Question</span>
-                                <p class="question-text" id="questionText"></p>
+                    <div class="method-section">
+                        <h4>2. 短对话精听四步法（本节核心流程）</h4>
+                        <div class="steps-flow">
+                            <div class="flow-step">
+                                <div class="step-icon">1</div>
+                                <div class="step-content">
+                                    <strong>读题试答</strong>
+                                    <p>先看题目选项，圈画关键词，预判听力重点。</p>
+                                </div>
                             </div>
-                            <div class="quiz-options" id="quizOptions">
-                                <!-- 选项将通过JS动态生成 -->
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-icon">2</div>
+                                <div class="step-content">
+                                    <strong>关键信息精听</strong>
+                                    <p>听听力原文挖空版，填写关键信息，聚焦核心考点。</p>
+                                </div>
                             </div>
-                            <div class="quiz-result" id="quizResult" style="display: none;">
-                                <div class="result-icon" id="resultIcon"></div>
-                                <div class="result-content">
-                                    <p class="result-text" id="resultText"></p>
-                                    <p class="result-explanation" id="resultExplanation"></p>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-icon">3</div>
+                                <div class="step-content">
+                                    <strong>核对跟读</strong>
+                                    <p>听完整原文，对照答案跟读，纠正发音和连读。</p>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-icon">4</div>
+                                <div class="step-content">
+                                    <strong>影子跟读</strong>
+                                    <p>不看原文，跟随音频节奏跟读，培养语感和反应速度。</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 导航按钮 -->
-                <div class="navigation">
-                    <button id="prevBtn" class="nav-btn" disabled>
-                        <span>←</span> 上一页
-                    </button>
-                    <button id="nextBtn" class="nav-btn">
-                        下一页 <span>→</span>
-                    </button>
+                <div class="section-actions">
+                    <button id="complete-preview" class="btn btn-primary" disabled>完成预习，进入带做题目</button>
                 </div>
-            </div>
-        </div>
+            </section>
+
+            <!-- 带做题目部分 -->
+            <section id="practice-section" class="section">
+                <div class="section-header">
+                    <h2>带做题目（15分钟）</h2>
+                    <div class="timer" id="practice-timer">00:00</div>
+                </div>
+
+                <!-- 真题精听训练 -->
+                <div class="subsection">
+                    <h3>一、真题精听训练（12分钟）</h3>
+
+                    <!-- 读题试答 -->
+                    <div class="practice-step" id="step-reading">
+                        <h4>1. 读题试答（2分钟）</h4>
+                        <p class="step-hint">快速浏览以下5道题，圈画每题关键词，预判答案方向。</p>
+                        
+                        <div class="audio-player-container">
+                            <div class="audio-player">
+                                <button id="reading-play-btn" class="play-btn">▶</button>
+                                <div class="audio-progress">
+                                    <div class="progress-bar-fill" id="reading-progress"></div>
+                                </div>
+                                <span class="audio-time" id="reading-time">0:00 / 0:00</span>
+                                <div class="speed-control">
+                                    <label>播放速度：</label>
+                                    <select id="reading-speed">
+                                        <option value="0.5">0.5x</option>
+                                        <option value="0.8">0.8x</option>
+                                        <option value="1.0" selected>1.0x</option>
+                                        <option value="1.2">1.2x</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <p class="audio-hint">请上传音频文件： <input type="file" id="reading-audio-upload" accept="audio/*"></p>
+                        </div>
+                        
+                        <div class="questions-list">
+                            <div class="question-item" data-question="1">
+                                <div class="question-header">
+                                    <span class="question-number">1.</span>
+                                    <span class="question-text">How does the man feel now?</span>
+                                    <span class="keyword-tag">关键词：feel →抓情绪类词汇</span>
+                                </div>
+                                <div class="options">
+                                    <label class="option">
+                                        <input type="radio" name="q1" value="A">
+                                        <span>A. Proud.</span>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="q1" value="B">
+                                        <span>B. Unhappy.</span>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="q1" value="C">
+                                        <span>C. Curious.</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="question-item" data-question="2">
+                                <div class="question-header">
+                                    <span class="question-number">2.</span>
+                                    <span class="question-text">Where does the conversation probably take place?</span>
+                                    <span class="keyword-tag">关键词：where →抓场景类词汇</span>
+                                </div>
+                                <div class="options">
+                                    <label class="option">
+                                        <input type="radio" name="q2" value="A">
+                                        <span>A. At a ticket office.</span>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="q2" value="B">
+                                        <span>B. Inside a zoo.</span>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="q2" value="C">
+                                        <span>C. At a restaurant.</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="question-item" data-question="3">
+                                <div class="question-header">
+                                    <span class="question-number">3.</span>
+                                    <span class="question-text">Where is the woman heading?</span>
+                                    <span class="keyword-tag">关键词：heading →抓目的地</span>
+                                </div>
+                                <div class="options">
+                                    <label class="option">
+                                        <input type="radio" name="q3" value="A">
+                                        <span>A. A restaurant.</span>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="q3" value="B">
+                                        <span>B. A cinema.</span>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="q3" value="C">
+                                        <span>C. A school.</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="question-item" data-question="4">
+                                <div class="question-header">
+                                    <span class="question-number">4.</span>
+                                    <span class="question-text">What is the man doing?</span>
+                                    <span class="keyword-tag">关键词：doing →抓行为类动作</span>
+                                </div>
+                                <div class="options">
+                                    <label class="option">
+                                        <input type="radio" name="q4" value="A">
+                                        <span>A. Booking accommodations.</span>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="q4" value="B">
+                                        <span>B. Sending a package.</span>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="q4" value="C">
+                                        <span>C. Making a complaint.</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="question-item" data-question="5">
+                                <div class="question-header">
+                                    <span class="question-number">5.</span>
+                                    <span class="question-text">What is the probable relationship between the speakers?</span>
+                                    <span class="keyword-tag">关键词：relationship →抓人物关系线索</span>
+                                </div>
+                                <div class="options">
+                                    <label class="option">
+                                        <input type="radio" name="q5" value="A">
+                                        <span>A. Teacher and student.</span>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="q5" value="B">
+                                        <span>B. Mother and son.</span>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="q5" value="C">
+                                        <span>C. Doctor and patient.</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-actions">
+                            <button id="start-listening" class="btn btn-primary">完成读题，开始精听</button>
+                        </div>
+                    </div>
+
+                    <!-- 关键信息精听 -->
+                    <div class="practice-step hidden" id="step-listening">
+                        <h4>2. 关键信息精听（5分钟）</h4>
+                        <p class="step-hint">播放短对话音频（0.8倍速），完成以下"挖空版"原文填空，每空填写1-3个核心词。</p>
+                        
+                        <div class="audio-player-container">
+                            <div class="audio-player">
+                                <button id="play-pause-btn" class="play-btn">▶</button>
+                                <div class="audio-progress">
+                                    <div class="progress-bar-fill"></div>
+                                </div>
+                                <span class="audio-time">0:00 / 0:00</span>
+                                <div class="speed-control">
+                                    <label>播放速度：</label>
+                                    <select id="playback-speed">
+                                        <option value="0.5">0.5x</option>
+                                        <option value="0.8" selected>0.8x</option>
+                                        <option value="1.0">1.0x</option>
+                                        <option value="1.2">1.2x</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <p class="audio-hint">请上传音频文件： <input type="file" id="audio-upload" accept="audio/*"></p>
+                        </div>
+
+                        <div class="texts-container">
+                            <div class="text-item" data-text="1">
+                                <h5>Text 1</h5>
+                                <div class="dialogue">
+                                    <p><strong>W:</strong> You look different, Bill. Did you change your hair?</p>
+                                    <p><strong>M:</strong> Yes. My hairdresser was ill, so I had the trainee instead. But I <input type="text" class="blank-input" data-answer="hate" data-blank="1"> it! I am <input type="text" class="blank-input" data-answer="embarrassed" data-blank="2"> now.</p>
+                                </div>
+                            </div>
+
+                            <div class="text-item" data-text="2">
+                                <h5>Text 2</h5>
+                                <div class="dialogue">
+                                    <p><strong>W:</strong> How can I help you today?</p>
+                                    <p><strong>M:</strong> A family <input type="text" class="blank-input" data-answer="package" data-blank="1"> for the zoo—two adults and two children.</p>
+                                    <p><strong>W:</strong> That'll be <input type="text" class="blank-input" data-answer="80/eighty" data-blank="2"> dollars. Would you like to add access to the feeding zones for an extra 30?</p>
+                                </div>
+                            </div>
+
+                            <div class="text-item" data-text="3">
+                                <h5>Text 3</h5>
+                                <div class="dialogue">
+                                    <p><strong>M:</strong> When you get to the supermarket, take the second left. You'll pass a <input type="text" class="blank-input" data-answer="restaurant" data-blank="1">. The <input type="text" class="blank-input" data-answer="cinema" data-blank="2"> is next to it.</p>
+                                    <p><strong>W:</strong> Thank you very much.</p>
+                                    <p><strong>M:</strong> Drive carefully—there are lots of <input type="text" class="blank-input" data-answer="children/kids" data-blank="3"> along the way.</p>
+                                </div>
+                            </div>
+
+                            <div class="text-item" data-text="4">
+                                <h5>Text 4</h5>
+                                <div class="dialogue">
+                                    <p><strong>W:</strong> Good afternoon, sir. How may I assist you today?</p>
+                                    <p><strong>M:</strong> The <input type="text" class="blank-input" data-answer="accommodation" data-blank="1"> provided did not meet the promised standards in the travel package. The room was poorly <input type="text" class="blank-input" data-answer="maintained" data-blank="2"> and dirty.</p>
+                                </div>
+                            </div>
+
+                            <div class="text-item" data-text="5">
+                                <h5>Text 5</h5>
+                                <div class="dialogue">
+                                    <p><strong>M:</strong> Is it okay if I don't go to school today? I feel sick.</p>
+                                    <p><strong>W:</strong> Does your head hurt?</p>
+                                    <p><strong>M:</strong> No, but I've got a really bad <input type="text" class="blank-input" data-answer="stomachache" data-blank="1">.</p>
+                                    <p><strong>W:</strong> Hmm. I heard you coughing all night. I think we should take you to see a doctor.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-actions">
+                            <button id="check-answers" class="btn btn-secondary">核对答案</button>
+                            <button id="go-to-repeat" class="btn btn-primary hidden">进入核对跟读</button>
+                        </div>
+                    </div>
+
+                    <!-- 核对跟读 -->
+                    <div class="practice-step hidden" id="step-repeat">
+                        <h4>3. 核对跟读（3分钟）</h4>
+                        
+                        <div class="audio-player-container">
+                            <div class="audio-player">
+                                <button id="repeat-play-btn" class="play-btn">▶</button>
+                                <div class="audio-progress">
+                                    <div class="progress-bar-fill" id="repeat-progress"></div>
+                                </div>
+                                <span class="audio-time" id="repeat-time">0:00 / 0:00</span>
+                                <div class="speed-control">
+                                    <label>播放速度：</label>
+                                    <select id="repeat-speed">
+                                        <option value="0.5">0.5x</option>
+                                        <option value="0.8">0.8x</option>
+                                        <option value="1.0" selected>1.0x</option>
+                                        <option value="1.2">1.2x</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <p class="audio-hint">请上传音频文件： <input type="file" id="repeat-audio-upload" accept="audio/*"></p>
+                        </div>
+                        
+                        <div class="repeat-instruction-box">
+                            <h5>📖 完整跟读指导</h5>
+                            <p class="repeat-guide">请<strong>看着下方的原文</strong>，播放音频（建议1.0倍速），逐句跟读。重点关注以下连读/弱读现象：</p>
+                            <div class="tips-list">
+                                <div class="tip-item">
+                                    <span class="tip-phrase">How can I</span>
+                                    <span class="tip-pronunciation">/haʊ kænaɪ/</span>
+                                </div>
+                                <div class="tip-item">
+                                    <span class="tip-phrase">take the second left</span>
+                                    <span class="tip-pronunciation">/teɪk ðə ˈsekənd left/</span>
+                                </div>
+                                <div class="tip-item">
+                                    <span class="tip-phrase">badly stomachache</span>
+                                    <span class="tip-pronunciation">/ˈbædli ˈstʌməkeɪk/</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="repeat-section">
+                            <div class="full-texts-show" id="full-texts-container">
+                                <h5>📝 真题完整原文（请边看边听边读）</h5>
+                                <div class="text-item">
+                                    <h6>Text 1</h6>
+                                    <div class="dialogue">
+                                        <p><strong>W:</strong> You look different, Bill. Did you change your hair?</p>
+                                        <p><strong>M:</strong> Yes. My hairdresser was ill, so I had the trainee instead. But I <span class="correct-answer">hate</span> it! I am <span class="correct-answer">embarrassed</span> now.</p>
+                                    </div>
+                                </div>
+
+                                <div class="text-item">
+                                    <h6>Text 2</h6>
+                                    <div class="dialogue">
+                                        <p><strong>W:</strong> How can I help you today?</p>
+                                        <p><strong>M:</strong> A family <span class="correct-answer">package</span> for the zoo—two adults and two children.</p>
+                                        <p><strong>W:</strong> That'll be <span class="correct-answer">80/eighty</span> dollars. Would you like to add access to the feeding zones for an extra 30?</p>
+                                    </div>
+                                </div>
+
+                                <div class="text-item">
+                                    <h6>Text 3</h6>
+                                    <div class="dialogue">
+                                        <p><strong>M:</strong> When you get to the supermarket, take the second left. You'll pass a <span class="correct-answer">restaurant</span>. The <span class="correct-answer">cinema</span> is next to it.</p>
+                                        <p><strong>W:</strong> Thank you very much.</p>
+                                        <p><strong>M:</strong> Drive carefully—there are lots of <span class="correct-answer">children/kids</span> along the way.</p>
+                                    </div>
+                                </div>
+
+                                <div class="text-item">
+                                    <h6>Text 4</h6>
+                                    <div class="dialogue">
+                                        <p><strong>W:</strong> Good afternoon, sir. How may I assist you today?</p>
+                                        <p><strong>M:</strong> The <span class="correct-answer">accommodation</span> provided did not meet the promised standards in the travel package. The room was poorly <span class="correct-answer">maintained</span> and dirty.</p>
+                                    </div>
+                                </div>
+
+                                <div class="text-item">
+                                    <h6>Text 5</h6>
+                                    <div class="dialogue">
+                                        <p><strong>M:</strong> Is it okay if I don't go to school today? I feel sick.</p>
+                                        <p><strong>W:</strong> Does your head hurt?</p>
+                                        <p><strong>M:</strong> No, but I've got a really bad <span class="correct-answer">stomachache</span>.</p>
+                                        <p><strong>W:</strong> Hmm. I heard you coughing all night. I think we should take you to see a doctor.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-actions">
+                            <button id="go-to-shadow" class="btn btn-primary">进入影子跟读</button>
+                        </div>
+                    </div>
+
+                    <!-- 影子跟读 -->
+                    <div class="practice-step hidden" id="step-shadow">
+                        <h4>4. 影子跟读（2分钟）</h4>
+                        
+                        <div class="shadow-section">
+                            <p class="shadow-instruction">关闭原文，再次播放音频（1.0倍速），跟随音频节奏跟读，尽量模仿语音语调，培养"即时反应"能力。</p>
+                            
+                            <div class="audio-player-container">
+                                <div class="audio-player">
+                                    <button id="shadow-play-btn" class="play-btn">▶</button>
+                                    <div class="audio-progress">
+                                        <div class="progress-bar-fill" id="shadow-progress"></div>
+                                    </div>
+                                    <span class="audio-time" id="shadow-time">0:00 / 0:00</span>
+                                    <div class="speed-control">
+                                        <label>播放速度：</label>
+                                        <select id="shadow-speed">
+                                            <option value="0.5">0.5x</option>
+                                            <option value="0.8">0.8x</option>
+                                            <option value="1.0" selected>1.0x</option>
+                                            <option value="1.2">1.2x</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <p class="audio-hint">请上传音频文件： <input type="file" id="shadow-audio-upload" accept="audio/*"></p>
+                            </div>
+
+                            <div class="shadow-status">
+                                <div class="status-indicator" id="shadow-status">
+                                    <span class="status-dot"></span>
+                                    <span class="status-text">准备开始影子跟读...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-actions">
+                            <button id="complete-shadow" class="btn btn-primary">完成跟读，查看课后作业</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 课后作业部分 -->
+            <section id="homework-section" class="section">
+                <div class="section-header">
+                    <h2>课后作业</h2>
+                </div>
+
+                <div class="homework-content">
+                    <div class="homework-card">
+                        <h3>今日作业</h3>
+                        <div class="homework-list">
+                            <div class="homework-item">
+                                <div class="homework-icon">📝</div>
+                                <div class="homework-detail">
+                                    <h4>1. 单词巩固</h4>
+                                    <p>复习今日所学的8个核心词汇，每个单词造一个句子，写在作业本上。</p>
+                                </div>
+                            </div>
+                            
+                            <div class="homework-item">
+                                <div class="homework-icon">🎧</div>
+                                <div class="homework-detail">
+                                    <h4>2. 听力复习</h4>
+                                    <p>重新听一遍今日的真题音频，尝试不看原文进行影子跟读，录制自己的跟读音频。</p>
+                                </div>
+                            </div>
+                            
+                            <div class="homework-item">
+                                <div class="homework-icon">📚</div>
+                                <div class="homework-detail">
+                                    <h4>3. 技巧整理</h4>
+                                    <p>整理"5大关键信息"和"精听四步法"的学习笔记，总结适合自己的精听方法。</p>
+                                </div>
+                            </div>
+                            
+                            <div class="homework-item">
+                                <div class="homework-icon">✏️</div>
+                                <div class="homework-detail">
+                                    <h4>4. 错题分析</h4>
+                                    <p>分析今日做错的题目，找出错误原因（是词汇问题、听力技巧问题还是理解问题）。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="homework-card">
+                        <h3>明日预习</h3>
+                        <div class="preview-homework">
+                            <p>明天我们将继续学习短对话听力，请提前预习以下场景词汇：</p>
+                            <ul>
+                                <li>机场场景：flight, boarding pass, departure, arrival</li>
+                                <li>医院场景：appointment, prescription, symptom, examination</li>
+                                <li>银行场景：account, deposit, withdraw, transfer</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="completion-message">
+                        <h3>🎉 恭喜完成今日学习！</h3>
+                        <p>坚持精听练习，你的英语听力一定会越来越好！</p>
+                        <button id="restart-btn" class="btn btn-secondary">重新开始学习</button>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 
     <script src="script.js"></script>
